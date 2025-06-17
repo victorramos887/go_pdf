@@ -20,4 +20,6 @@ func initializeRoutes(router *gin.Engine) {
 	v1.POST("/maintenance", handler.CreateMaintenance)
 
 	v1.GET("/maintenance", handler.ShowMaintenance)
+
+	v1.GET("/maintenances", handler.ListMaintenance)
 }
