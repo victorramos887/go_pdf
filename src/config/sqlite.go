@@ -3,14 +3,15 @@ package config
 import (
 	"os"
 
+	"github.com/victorramos887/go_pdf/src/schemas"
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
 func InitializerSQLite() (*gorm.DB, error) {
 	logger := GetLogger("SQLite")
-	dbPath := "./db/main.db"
-
-	dir := "./db"
+	dbPath := "./src/db/main.db"
+	dir := "./src/db"
 	err := os.MkdirAll(dir, os.ModePerm)
 	if err != nil {
 		return nil, err
@@ -28,13 +29,13 @@ func InitializerSQLite() (*gorm.DB, error) {
 		file.Close()
 	}
 
-	db, err := gorm.Open("sqlite", dbPath)
+	db, err := gorm.Open(sqlite.Open(dbPath), &gorm.Config{})
 	if err != nil {
 		logger.Errorf("sqlite opening error: %v", err)
 		return nil, err
 	}
 
-	err = db.AutoMigrate(&schemas.Opening{})
+	err = db.AutoMigrate(&schemas.Maintenance{})
 
 	if err != nil {
 		logger.Errorf("sqlite automigration error: %v", err)
