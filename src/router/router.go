@@ -9,13 +9,6 @@ func Initialize() {
 	handler.InitializeHandler()
 
 	router := gin.Default()
-
-	router.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Welcome to the API!",
-		})
-	})
-
-	router.POST("/maintenance", handler.CreateMaintenance)
+	initializeRoutes(router)
 	router.Run(":8080")
 }
