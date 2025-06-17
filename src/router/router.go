@@ -1,8 +1,13 @@
 package router
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/victorramos887/go_pdf/src/handler"
+)
 
 func Initialize() {
+	handler.InitializeHandler()
+
 	router := gin.Default()
 
 	router.GET("/", func(c *gin.Context) {
@@ -10,5 +15,7 @@ func Initialize() {
 			"message": "Welcome to the API!",
 		})
 	})
-	router.Run(":8080") // Start the server on port 8080
+
+	router.POST("/maintenance", handler.CreateMaintenance)
+	router.Run(":8080")
 }
